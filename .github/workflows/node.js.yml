@@ -41,6 +41,10 @@ jobs:
     - run: npm ci
     # - run: npm test
     - run: npm run build --if-present
+    - name: Upload GitHub Pages artifact
+      uses: actions/upload-pages-artifact@v3.0.0
+      with:
+        path: '/'
 
   # Deploy job
   deploy:
@@ -63,4 +67,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
-          
