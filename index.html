@@ -1,104 +1,246 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Alley</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="stylesheet" href="dist/reset.css">
-    <link rel="stylesheet" href="dist/reveal.css">
-    <link rel="stylesheet" href="dist/theme/alley.css">
+  <title>Alley</title>
 
-    <!-- Theme used for syntax highlighted code -->
-    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+  <link rel="stylesheet" href="dist/reset.css">
+  <link rel="stylesheet" href="dist/reveal.css">
+  <link rel="stylesheet" href="dist/theme/blood-snow.css">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Open+Sans+Condensed:300,700">
-  </head>
-  <body>
-    <div class="reveal">
-      <div class="slides">
-        <section class="center" data-background="images/background-red.png">
-          <section id="title-slide" class="center">
-            <h2>Presentation Title</h2>
-            <p>Your Name / @twitter / alley.com</p>
-            <p>#hashtag</p>
-          </section>
+  <!-- Theme used for syntax highlighted code -->
+  <link rel="stylesheet" href="plugin/highlight/monokai.css">
 
-          <section class="center">
-            <h2><img src="images/logo.png" alt="Alley" id="title-logo" style="width:30%" /></h2>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Open+Sans+Condensed:300,700">
+</head>
 
-            <ul>
-              <li>We are a full-service digital agency</li>
-              <li>WordPress.com VIP Gold Partner</li>
-              <li>Hiring!</li>
-            </ul>
-          </section>
-        </section>
+<body>
+  <style>
+    #snowfall {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      /* Adjust as needed to keep it behind content */
+    }
 
-        <section>
-          <h2>Another Slide</h2>
-          <p>This slide has a list with fragments</p>
-          <ol>
-            <li class="fragment">First item</li>
-            <li class="fragment">Second item</li>
-            <li class="fragment">Third item</li>
-          </ol>
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      color: #fff;
+      opacity: 0.8;
+      font-size: 0.5em;
+      /* Adjust size */
+      animation-name: fall;
+      animation-duration: 20s;
+      /* Adjust for speed */
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
 
-          <aside class="notes">
-            This slide has some notes
-          </aside>
-        </section>
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
 
-        <section data-markdown>
-          <script type="text/template">
-            ## Markdown Slide
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
 
-            This slide is written in markdown. It also has fragments and notes.
+    .star {
+      position: absolute;
+      color: #fff;
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: twinkling 5s infinite;
+    }
 
-            * Like this <!-- .element: class="fragment" -->
-            * And this <!-- .element: class="fragment" -->
+    @keyframes twinkling {
+      0% {
+        opacity: 0.2;
+      }
 
-            Note:
-            * tktk
-          </script>
-        </section>
+      50% {
+        opacity: 0.8;
+      }
 
-        <section>
-          <h2>Slide With Editable Code</h2>
-          <pre><code data-trim contenteditable class="php">
-          function say_hello( $name ) {
-              echo "Hello {$name}!";
-          }
-          </code></pre>
-
-          <aside class="notes">
-            <ol>
-              <li>You can use HTML in notes too, of course</li>
-              <li>All slides should have notes!</li>
-            </ol>
-          </aside>
-        </section>
-      </div>
-
-      <img src="images/logo.png" alt="Alley" id="logo" />
-      <div id="hashtag">#hashtag</div>
+      100% {
+        opacity: 0.2;
+      }
+    }
+  </style>
+  <div class="stars"></div>
+  <div id="snowfall"></div>
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slides will be dynamically added here -->
     </div>
+  </div>
 
-    <script src="dist/reveal.js"></script>
-    <script src="plugin/notes/notes.js"></script>
-    <script src="plugin/markdown/markdown.js"></script>
-    <script src="plugin/highlight/highlight.js"></script>
-    <script>
-      // More info about initialization & config:
-      // - https://revealjs.com/initialization/
-      // - https://revealjs.com/config/
-      Reveal.initialize({
-        hash: true,
+  <script src="dist/reveal.js"></script>
+  <script>
+    const decisionTree = {
+      start: {
+        title: "Start",
+        content: "Merry Christmas! Where will your adventure take you?",
+        options: [
+          { text: "Here (CNY)", target: "forHere" },
+          { text: "Near (~2-4 hr drive)", target: "forNear" },
+          { text: "Far (~4-6 hr drive)", target: "forFar" },
+        ]
+      },
+      forHere: {
+        title: "An Adventure for Here",
+        content: "And where will it take you?",
+        options: [
+          { text: "Indoors", target: "forTwoHereIn" },
+          { text: "Outdoors", target: "forTwoHereOut" },
+        ]
+      },
+      forNear: {
+        title: "An Adventure for Near",
+        content: "And how many in your party?",
+        options: [
+          { text: "Two", target: "forTwoNear" },
+          { text: "Four", target: "forFourNear" },
+        ]
+      },
+      forFar: {
+        title: "An Adventure for Far",
+        content: "And how many in your party?",
+        options: [
+          { text: "Two", target: "forTwoFar" },
+          { text: "Four", target: "forFourFar" },
+        ]
+      },
+      forTwoHereIn: {
+        title: "An Adventure for Two Here, Indoors",
+        content: "You're going on a couples' float at Bodymind Float Center!",
+        options: [
+          { text: "Learn More", target: "https://floatsyracuse.com/" },
+          { text: "Start Over", target: "start" },
+        ]
+      },
+      forTwoHereOut: {
+        title: "An Adventure for Two Here, Outdoors",
+        content: "You're going XC skiing at Osceola Ski and Sport Resort! Includes lessons, rentals, and day tickets.",
+        options: [
+          { text: "Learn More", target: "https://www.skiosceola.com/" },
+          { text: "Start Over", target: "start" },
+        ]
+      },
+      forTwoNear: {
+        title: "An Adventure for Two Near",
+        content: "You're going XC skiing in Craftsbury, VT! Includes lesson, rental, and a gift card towards an apres ski drink or snack.",
+        options: [
+          { text: "Learn More", target: "https://www.craftsbury.com/ski/" },
+          { text: "Start Over", target: "start" },
+        ]
+      },
+      forFourNear: {
+        title: "An Adventure for Four Near",
+        content: "You're going XC skiing in Craftsbury, VT! Includes lesson and rental for the whole family.",
+        options: [
+          { text: "Learn More", target: "https://www.craftsbury.com/ski/" },
+          { text: "Start Over", target: "start" },
+        ]
+      },
+      forTwoFar: {
+        title: "An Adventure for Two Far",
+        content: "You're going on a guided, all-you-can-drink tour of Portland, ME!",
+        options: [
+          { text: "Learn More", target: "https://photos.app.goo.gl/eKus6eUM68eiBuvE7" },
+          { text: "Start Over", target: "start" },
+        ]
+      },
+      forFourFar: {
+        title: "An Adventure for Four Far",
+        content: "A family four-pack of tickets to the Sea Dogs! May be exchanged for all-you-can-eat pavilion tickets.",
+        options: [
+          { text: "Learn More", target: "https://www.milb.com/portland" },
+          { text: "Start Over", target: "start" },
+        ]
+      }
 
-        // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const slidesContainer = document.querySelector('.reveal .slides');
+
+      Object.keys(decisionTree).forEach(key => {
+        const node = decisionTree[key];
+        const section = document.createElement('section');
+        section.id = key;
+        section.innerHTML = `<h2>${node.title}</h2><p>${node.content}</p>`;
+
+        node.options.forEach(option => {
+          const button = document.createElement('a');
+          if (option.target.startsWith('http') || option.target.startsWith('www')) {
+            button.href = option.target;
+            button.target = '_blank';
+          } else {
+            button.href = `#/${option.target}`;
+          }
+          button.textContent = option.text;
+          button.className = 'link-button'; // Add a class for styling
+          section.appendChild(button);
+          section.appendChild(document.createElement('br')); // Add a line break after each button
+        });
+
+        slidesContainer.appendChild(section);
       });
-    </script>
-  </body>
+
+      // Initialize Reveal.js
+      Reveal.initialize({
+        // Your preferred settings
+      });
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      const starsContainer = document.querySelector('.stars');
+      const numberOfStars = 300; // Adjust as needed
+
+      for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.textContent = '.'; // Star character
+        star.style.top = Math.random() * 100 + '%';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 5 + 's';
+        starsContainer.appendChild(star);
+      };
+
+      const snowfall = document.getElementById('snowfall');
+      const numberOfSnowflakes = 100; // Adjust as needed
+
+      for (let i = 0; i < numberOfSnowflakes; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        snowflake.textContent = '❄'; // Snowflake character
+        snowflake.style.top = -1 * (10 * Math.random() + 1) + 'rem';
+        snowflake.style.left = Math.random() * 100 + '%';
+        snowflake.style.animationDelay = Math.random() * 5 + 's';
+        snowflake.style.animationDuration = 5 + Math.random() * 10 + 's';
+        snowflake.style.opacity = Math.random();
+        snowflake.style.fontSize = 0.25 + Math.random() * 1.5 + 'em';
+        snowflake.style.transform = 'rotate(' + Math.random() * 360 + 180 + 'deg)'; // Add random rotation
+        snowfall.appendChild(snowflake);
+      };
+    });
+  </script>
+</body>
+
 </html>
